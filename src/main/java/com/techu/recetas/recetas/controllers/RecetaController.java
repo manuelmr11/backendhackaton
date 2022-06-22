@@ -49,7 +49,7 @@ public class RecetaController {
         );
     }
 
-    @PutMapping("/lista/{nombre}")
+    @PutMapping("/update/{nombre}")
     public ResponseEntity<Object> updateReceta(
             @RequestBody RecetaModel receta,
             @PathVariable String nombre) {
@@ -71,7 +71,7 @@ public class RecetaController {
         );
     }
 
-    @DeleteMapping("/lista/{nombre}")
+    @DeleteMapping("/delete/{nombre}")
     public ResponseEntity<Object> deleteReceta(@PathVariable String nombre) {
         System.out.println("deleteReceta");
         System.out.println("La id del parametro que se va a borrar es " + nombre);
