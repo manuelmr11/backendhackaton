@@ -33,4 +33,43 @@ public class RecetaService {
         return this.recetaRepository.save(receta);
 
     }
+
+    public boolean update(RecetaModel receta, String nombre) {
+          System.out.println("update an PurchaseService");
+
+          boolean result = false;
+
+           if (this.findById(nombre).isPresent() == true) {
+
+                System.out.println("Usuario a acutalizar encontrado " + nombre);
+                receta.setNombre(nombre);
+                receta.setTiempo(receta.getTiempo());
+                receta.setIngredientes(receta.getIngredientes());
+                receta.setPreparacion(receta.getPreparacion());
+                this.recetaRepository.save(receta);
+
+                result = true;
+            }
+
+            return result;
+
+    }
+
+    public boolean delete(String nombre) {
+
+        System.out.println("delete an recetaService");
+
+        boolean result = false;
+
+        if (this.findById(nombre).isPresent() == true) {
+            System.out.println("Usuario encontrado");
+            this.recetaRepository.delete(this.findById(nombre).get());
+
+            result = true;
+        }
+
+        return result;
+    }
+
+
 }

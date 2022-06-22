@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
 @RequestMapping("/recetas")
 public class RecetaController {
 
@@ -45,6 +46,41 @@ public class RecetaController {
         return new ResponseEntity<>(
                 result.isPresent() ? result.get() : "Receta no encontrada"
                 , result.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND
+        );
+    }
+
+    @PutMapping("/lista/{nombre}")
+    public ResponseEntity<Object> updateReceta(
+            @RequestBody RecetaModel receta,
+            @PathVariable String nombre) {
+
+        System.out.println("updateReceta");
+        System.out.println("La id del parametro que se va a actualizar es " + nombre);
+        System.out.println("El nombre de la receta a actualizar es " + receta.getNombre());
+        System.out.println("Los ingredientes son " + receta.getIngredientes());
+        System.out.println("Como se prepara " + receta.getPreparacion());
+        System.out.println("El tiempo de preparacion es " + receta.getTiempo());
+
+        Optional<RecetaModel> purchaseToUpdate = this.recetaService.findById(nombre);
+
+        boolean updatePurchase = this.recetaService.update(receta, nombre);
+
+        return new ResponseEntity<>(
+                updatePurchase ? "Usuario actualizado" : "Usuario No Existe",
+                updatePurchase ? HttpStatus.OK : HttpStatus.NOT_FOUND
+        );
+    }
+
+    @DeleteMapping("/lista/{nombre}")
+    public ResponseEntity<Object> deleteReceta(@PathVariable String nombre) {
+        System.out.println("deleteReceta");
+        System.out.println("La id del parametro que se va a borrar es " + nombre);
+
+        boolean deleteReceta = this.recetaService.delete(nombre);
+
+        return new ResponseEntity<>(
+                deleteReceta ? "Compra borrada" : "Compra No Borrada",
+                deleteReceta ? HttpStatus.OK : HttpStatus.NOT_FOUND
         );
     }
 
