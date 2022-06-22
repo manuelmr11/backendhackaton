@@ -32,6 +32,7 @@ public class RecetaController {
         System.out.println("Los ingredientes son " + receta.getIngredientes());
         System.out.println("Como se prepara " + receta.getPreparacion());
         System.out.println("El tiempo de preparacion es " + receta.getTiempo());
+        System.out.println("La URL de la imagen a subir es " + receta.getFoto());
 
         return new ResponseEntity<>(this.recetaService.addReceta(receta), HttpStatus.CREATED);
     }
@@ -60,13 +61,14 @@ public class RecetaController {
         System.out.println("Los ingredientes son " + receta.getIngredientes());
         System.out.println("Como se prepara " + receta.getPreparacion());
         System.out.println("El tiempo de preparacion es " + receta.getTiempo());
+        System.out.println("La foto es " + receta.getFoto());
 
         Optional<RecetaModel> purchaseToUpdate = this.recetaService.findById(nombre);
 
         boolean updatePurchase = this.recetaService.update(receta, nombre);
 
         return new ResponseEntity<>(
-                updatePurchase ? "Usuario actualizado" : "Usuario No Existe",
+                updatePurchase ? "Receta actualizado" : "Receta No Existe",
                 updatePurchase ? HttpStatus.OK : HttpStatus.NOT_FOUND
         );
     }
@@ -79,7 +81,7 @@ public class RecetaController {
         boolean deleteReceta = this.recetaService.delete(nombre);
 
         return new ResponseEntity<>(
-                deleteReceta ? "Compra borrada" : "Compra No Borrada",
+                deleteReceta ? "Receta borrada" : "Receta No Borrada",
                 deleteReceta ? HttpStatus.OK : HttpStatus.NOT_FOUND
         );
     }

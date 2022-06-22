@@ -17,12 +17,15 @@ public class RecetaModel {
 
     private String ingredientes;
 
+    private String foto;
+
     public RecetaModel() {
     }
 
-    public RecetaModel(String nombre, Integer tiempo, String preparacion, String ingredientes) {
+    public RecetaModel(String nombre, Integer tiempo, String foto, String preparacion, String ingredientes) {
         this.nombre=nombre;
         this.tiempo = tiempo;
+        this.foto = foto;
         this.preparacion = preparacion;
         this.ingredientes = ingredientes;
     }
@@ -57,5 +60,13 @@ public class RecetaModel {
 
     public void setIngredientes(String ingredientes) {
         this.ingredientes = ingredientes;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

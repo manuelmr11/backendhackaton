@@ -35,17 +35,18 @@ public class RecetaService {
     }
 
     public boolean update(RecetaModel receta, String nombre) {
-          System.out.println("update an PurchaseService");
+          System.out.println("update an RecetaService");
 
           boolean result = false;
 
            if (this.findById(nombre).isPresent() == true) {
 
-                System.out.println("Usuario a acutalizar encontrado " + nombre);
+                System.out.println("Receta a acutalizar encontrada " + nombre);
                 receta.setNombre(nombre);
                 receta.setTiempo(receta.getTiempo());
                 receta.setIngredientes(receta.getIngredientes());
                 receta.setPreparacion(receta.getPreparacion());
+                receta.setFoto(receta.getFoto());
                 this.recetaRepository.save(receta);
 
                 result = true;
