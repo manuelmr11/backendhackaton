@@ -76,6 +76,31 @@ public class RecetaController {
         }
     }
 
+    @GetMapping("/listaByTime/{search}")
+    public ResponseEntity<Object> findByTime(@PathVariable Integer search){
+        System.out.println("Lista con ingredientes RecetaController");
+        System.out.println("Estamos buscando receta con tiempo mayor que: "+ search);
+        List<RecetaModel> listaSinFiltrar = this.recetaService.findAll();
+        List<RecetaModel> result = new ArrayList<>();
+        for (int i = 0; i<listaSinFiltrar.size(); i++){
+            if (listaSinFiltrar.get(i).getTiempo().intValue() <= search.intValue()){
+                System.out.println("Encontrado una receta por su nombre");
+                System.out.println(listaSinFiltrar.get(i).toString());
+                result.add(listaSinFiltrar.get(i));
+            }else{
+                System.out.println("La lista esta vacia? " + result.isEmpty());
+            };
+
+        }
+        if(result.isEmpty()==false){
+            System.out.println("Busqueda con exito!");
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }else{
+            System.out.println("Busqueda sin exito");
+            return new ResponseEntity<>("Receta no encontrada", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/addReceta")
     public ResponseEntity<RecetaModel> addReceta(@RequestBody RecetaModel receta) {
         System.out.println("addreceta");
