@@ -25,6 +25,57 @@ public class RecetaController {
         return this.recetaService.findAll();
     }
 
+    @GetMapping("/listaByIngredients/{search}")
+    public ResponseEntity<Object> findByIngrdients(@PathVariable String search){
+        System.out.println("Lista con ingredientes RecetaController");
+        System.out.println("El ingrediente a buscar es: "+ search);
+        List<RecetaModel> listaSinFiltrar = this.recetaService.findAll();
+        List<RecetaModel> result = new ArrayList<>();
+        for (int i = 0; i<listaSinFiltrar.size(); i++){
+            if (listaSinFiltrar.get(i).getIngredientes().toLowerCase().contains(search.toLowerCase())==true){
+                System.out.println("Encontrado una receta con dicho ingrdiente!");
+                System.out.println(listaSinFiltrar.get(i).toString());
+                result.add(listaSinFiltrar.get(i));
+            }else{
+                System.out.println("La lista esta vacia? " + result.isEmpty());
+            };
+
+        }
+
+        if(result.isEmpty()==false){
+            System.out.println("Busqueda con exito!");
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }else{
+            System.out.println("Busqueda sin exito");
+            return new ResponseEntity<>("Receta no encontrada", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/listaByName/{search}")
+    public ResponseEntity<Object> findByName(@PathVariable String search){
+        System.out.println("Lista con ingredientes RecetaController");
+        System.out.println("El ingrediente a buscar es: "+ search);
+        List<RecetaModel> listaSinFiltrar = this.recetaService.findAll();
+        List<RecetaModel> result = new ArrayList<>();
+        for (int i = 0; i<listaSinFiltrar.size(); i++){
+            if (listaSinFiltrar.get(i).getNombre().toLowerCase().contains(search.toLowerCase())==true){
+                System.out.println("Encontrado una receta por su nombre");
+                System.out.println(listaSinFiltrar.get(i).toString());
+                result.add(listaSinFiltrar.get(i));
+            }else{
+                System.out.println("La lista esta vacia? " + result.isEmpty());
+            };
+
+        }
+        if(result.isEmpty()==false){
+            System.out.println("Busqueda con exito!");
+            return new ResponseEntity<>(result,HttpStatus.OK);
+        }else{
+            System.out.println("Busqueda sin exito");
+            return new ResponseEntity<>("Receta no encontrada", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/addReceta")
     public ResponseEntity<RecetaModel> addReceta(@RequestBody RecetaModel receta) {
         System.out.println("addreceta");
