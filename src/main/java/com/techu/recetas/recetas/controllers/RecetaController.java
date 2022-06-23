@@ -11,7 +11,11 @@ import java.util.*;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = {"https://backendhackaton-recetas.herokuapp.com/","*"}, allowedHeaders = {"Access-Control-Allow-Origin","*"} ,methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+@CrossOrigin(origins = {"https://backendhackaton-recetas.herokuapp.com/","*"},
+             allowedHeaders = {"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials",
+                               "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE",
+                               "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"},
+             methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 @RequestMapping("/recetas")
 public class RecetaController {
 
